@@ -41,12 +41,18 @@ useEffect(() => {
       }
 
       segment.entities.forEach((e) => {
+          const category = `${e.value.charAt(0)}${s.value.slice(1).toLowerCase()}`;
+
          switch(e.type) {
             case 'amount':
                 setFormData({ ...formData, amount: e.value });
                 break;
             case 'category':
-                setFormData({ ...formData, category: e.value });
+                if(incomeCategories.map((iC) => iC.type).includes(category)) {
+                    setFormData({ ...formData, type: 'Income', category: category });
+                } else if(expenseCategories.map((iC) => iC.type).includes(category)) {
+                    setFormData({ ...formData, type: 'Expense', category: category });
+                }
                 break;
             case 'date':
                 setFormData({ ...formData, date: e.value });
@@ -55,6 +61,10 @@ useEffect(() => {
                 break;   
            }
       });
+
+      if(segment.isFinal && formData.amount && formData.category && formData.type && formData.date) {
+          createTransaction();
+      }
   }
 }, [segment]);
 
