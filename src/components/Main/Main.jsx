@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Card, CardHeader, CardContent, Typography, Grid, Divider} from '@material-ui/core';
+import { ExpenseTrackerContext } from '../../context/context';
 
 import useStyles from './styles';
 import Form from './Form/Form';
