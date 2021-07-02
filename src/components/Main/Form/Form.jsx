@@ -20,12 +20,14 @@ const Form = () => {
     const { formData, setFormData } = useState(initialState);
     const { addTransaction } = useContext(ExpenseTrackerContext);
     const { segment } = useSpeechContext();
+    const [open, setOpen] = useState(false);
 
 const createTransaction = () => {
     if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
     
     const transaction = { ...formData, amount: Number(formData.amount), id: uuidv4() }
 
+    setOpen(true);
     addTransaction(transaction);
     setFormData(initialState);
 }
@@ -74,6 +76,7 @@ const selectedCategories = formData.type === 'Income' ? incomeCategories : expen
 
     return (
         <Grid container spacing={2}>
+            <CustomizedSnackbar open={open} setOpen={setOpen} />
             <Grid item xs={12}>
                 <Typography align="center" variant="subtitle2" gutterBottom>
                     {segment ? (
