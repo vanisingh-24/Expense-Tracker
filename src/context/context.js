@@ -1,32 +1,39 @@
-import React, {useReducer, createContext} from 'react';
+import React, { useReducer, createContext } from "react";
 
-import contextReducer from './contextReducer';
+import contextReducer from "./contextReducer";
 
-const initialState = JSON.parse(localStorage.getItem('transactions')) || [];
- 
+const initialState = JSON.parse(localStorage.getItem("transactions")) || [];
+
 export const ExpenseTrackerContext = createContext(initialState);
 
 export const Provider = ({ children }) => {
-    const {transactions, dispatch} = useReducer(contextReducer, initialState);
-    
-    //Action Creators
-    const deleteTransaction = (id) => {
-        dispatch({ type: 'DELETE_TRANSACTION', payload: id});
-    }
+  const { transactions, dispatch } = useReducer(contextReducer, initialState);
 
-    const addTrasaction = (transaction) => {
-        dispatch({ type: 'ADD_TRANSACTION', payload: transaction});
-    }
+  //Action Creators
+  const deleteTransaction = (id) => {
+    dispatch({ type: "DELETE_TRANSACTION", payload: id });
+  };
 
-    const balance = transactions.reduce((acc, currVal) => {
-        return (currVal.type === 'Expense' ? acc - currVal.amount : acc + currVal.amount )
-    }, 0);
+  const addTrasaction = (transaction) => {
+    dispatch({ type: "ADD_TRANSACTION", payload: transaction });
+  };
 
-    return (
-        <ExpenseTrackerContext.Provider value={{ 
-            deleteTransaction, addTrasaction, transactions, balance
-        }} >
-            { children }
-        </ExpenseTrackerContext.Provider>
-    )
-}
+  const balance = transactions.reduce((acc, currVal) => {
+    return currVal.type === "Expense"
+      ? acc - currVal.amount
+      : acc + currVal.amount;
+  }, 0);
+
+  return (
+    <ExpenseTrackerContext.Provider
+      value={{
+        deleteTransaction,
+        addTrasaction,
+        transactions,
+        balance,
+      }}
+    >
+      {children}
+    </ExpenseTrackerContext.Provider>
+  );
+};
