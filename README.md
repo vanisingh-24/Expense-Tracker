@@ -1,5 +1,16 @@
 # Expense-Tracker-React
 
+## Introduction
+
+This complex Expense Budget Tracker is built using reactJS with concepts like
+
+1. State Management using ReactHooks like useReducer, useState
+1. Context API for global State management
+1. Custom hooks
+
+It uses Material UI Framework for styling and Local Storage.
+Most importantly, I've added voice capabilities to this application using Speechly.
+
 ## Setup
 
 In the project directory, you can run:
