@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -9,7 +9,6 @@ import {
 } from "@material-ui/core";
 import { ExpenseTrackerContext } from "../../context/context";
 
-import { useSpeechContext } from '@speechly/react-client';
 import useStyles from "./styles";
 import Form from "./Form/Form";
 import List from "./List/List";
